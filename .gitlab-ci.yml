@@ -18,32 +18,32 @@ stages:
   - build
   - test
 
-# build_backend:
-#   stage: build
-#   script:
-#     - TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml -f docker-compose.production.yml pull backend || true
-#     - TAG=${CI_COMMIT_REF_NAME} CACHE_FROM_TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml -f docker-compose.production.yml build backend
-#     - TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml -f docker-compose.production.yml push backend
-#   only:
-#     changes:
-#       - backend/**/*
-#       - .gitlab-ci.yml
-#       - docker-compose.yml
-#       - docker-compose.production.yml
+build_backend:
+  stage: build
+  script:
+    - TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml -f docker-compose.production.yml pull backend || true
+    - TAG=${CI_COMMIT_REF_NAME} CACHE_FROM_TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml -f docker-compose.production.yml build backend
+    - TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml -f docker-compose.production.yml push backend
+  only:
+    changes:
+      - backend/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
+      - docker-compose.production.yml
 
-# test_internal:
-#   stage: test
-#   script:
-#     - docker pull ${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_NAME}
-#     - >
-#       TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml
-#       run --rm backend /bin/sh -c "coverage run --source='.' manage.py test --noinput && coverage report --skip-covered"
-#   only:
-#     changes:
-#       - backend/**/*
-#       - .gitlab-ci.yml
-#       - docker-compose.yml
-#       - docker-compose.production.yml
+test_internal:
+  stage: test
+  script:
+    - docker pull ${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_NAME}
+    - >
+      TAG=${CI_COMMIT_REF_NAME} docker-compose -f docker-compose.yml
+      run --rm backend /bin/sh -c "coverage run --source='.' manage.py test --noinput && coverage report --skip-covered"
+  only:
+    changes:
+      - backend/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
+      - docker-compose.production.yml
 
 test_trigger:
   stage: test
