@@ -11,6 +11,7 @@ services:
   echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
 
 before_script:
+  - env
   - *before_script_docker_login
 
 stages:
