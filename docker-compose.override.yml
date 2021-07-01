@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   backend:
+    image: alpine
     restart: unless-stopped
     volumes:
       - ./backend/:/app/:cached
