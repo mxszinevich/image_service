@@ -50,8 +50,9 @@ test_trigger:
   variables:
     DOCKER_IMAGE_BACKEND_CI_COMMIT_SHA: ${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_NAME}
   script:
-    - curl -X POST \
-      -F token=$TOKEN \
-      -F "ref=$REF_NAME" \
-      -F "variables[DOCKER_IMAGE_BACKEND_CI_COMMIT_SHA]=${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_NAME}" \
-      https://contest.idacloud.ru/api/v4/projects/3/trigger/pipeline
+#    - curl -X POST \
+#      -F token=$TOKEN \
+#      -F "ref=$REF_NAME" \
+#      -F "variables[DOCKER_IMAGE_BACKEND_CI_COMMIT_SHA]=${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_NAME}" \
+#      https://contest.idacloud.ru/api/v4/projects/3/trigger/pipeline
+    - curl --location -g --request POST 'https://contest.idacloud.ru/api/v4/projects/3/ref/master/trigger/pipeline?token=$TOKEN&variables[DOCKER_IMAGE_BACKEND_CI_COMMIT_SHA]=$DOCKER_IMAGE_BACKEND_CI_COMMIT_SHA'
