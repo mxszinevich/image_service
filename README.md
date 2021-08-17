@@ -29,3 +29,4 @@ docker-compose exec backend sh
 Сервис будет доступен по ссылке [http://localhost:8000/admin/login/?next=/admin/](http://localhost:8000/admin/login/?next=/admin/)
 
 О выполнении задания можно уведомить по почте a.kuzmenko@idaproject.com
+Так же можете задать вопросы лично мне (Telegram): @egor1344
