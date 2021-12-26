@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.forms",
     # third party
     "rest_framework",
-    'image_service.app.ImageServiceConfig'
+    'image_service.apps.ImageServiceConfig'
 ]
 
 MIDDLEWARE = [
