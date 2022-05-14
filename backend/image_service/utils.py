@@ -12,15 +12,15 @@ def create_path_image_data(instance, name: str) -> str:
     """
     Функция формирования пути к изображению
     """
-    return f'{name}'
+    return f"{name}"
 
 
 def get_modified_size_image(image_data: dict, image) -> Tuple[int, int]:
     """
     Функция, возвращающая размер изображения
     """
-    width = image_data.get('width') or image.width
-    height = image_data.get('height') or image.height
+    width = image_data.get("width") or image.width
+    height = image_data.get("height") or image.height
 
     return int(width), int(height)
 
@@ -37,12 +37,18 @@ def get_resize_image(image_data: dict, image) -> ContentFile:
 
     return ContentFile(buffer.getvalue())
 
-def get_image_from_url(url):
+
+def get_image_from_url(url: str):
     """
     Функция загрузки изображения по url
     """
     content = request.urlretrieve(url)
-    image = ImageFile(open(content[0], 'rb'))
+    image = ImageFile(open(content[0], "rb"))
     return image
 
 
+def get_image_name(url: str):
+    """
+    Метод формирующий имя изображения по url
+    """
+    return url.split("/")[-1]

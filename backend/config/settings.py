@@ -1,7 +1,5 @@
 import os
 import sys
-import unittest
-import faker.config
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,9 +22,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django.forms",
-    # third party
     "rest_framework",
-    'image_service.apps.ImageServiceConfig'
+    "drf_spectacular",
+    # apps
+    "image_service.apps.ImageServiceConfig",
 ]
 
 MIDDLEWARE = [
@@ -71,7 +70,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "PASSWORD": "postgres",
         "HOST": "db",
         "PORT": 5432,
         "CONN_MAX_AGE": 600,
@@ -100,21 +99,10 @@ STATIC_URL = "/s/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-# HTTP
-USE_X_FORWARDED_HOST = True
-USE_X_FORWARDED_PORT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Media
 MEDIA_URL = "/m/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
-FILE_UPLOAD_PERMISSIONS = 0o644
-
-# Debug Toolbar
-def show_toolbar_callback(_):
-    return DEBUG
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "config.settings.show_toolbar_callback"}
 
 # Cache
 if not TESTING:
@@ -123,4 +111,10 @@ if not TESTING:
 SITE_ID = 1
 
 # REST
-REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema"}
+REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
+SPECTACULAR_SETTINGS = {
+    "TITLE": "API тестового задания",
+    "DESCRIPTION": "Сервис загрузки изображений",
+    "SERVE_INCLUDE_SCHEMA": False,
+    # OTHER SETTINGS
+}

@@ -7,11 +7,8 @@ class ImageDataSerializer(serializers.ModelSerializer):
     """
     Сериализатор изображений (ImageData)
     """
+
     class Meta:
         model = ImageData
-        fields = '__all__'
-        extra_kwargs = {
-            'id': {'read_only': True},
-            'name': {'required': False}
-        }
-
+        fields = "__all__"
+        extra_kwargs = {"id": {"read_only": True}, "name": {"required": False}}

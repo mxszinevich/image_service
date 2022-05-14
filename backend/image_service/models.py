@@ -7,18 +7,27 @@ class ImageData(models.Model):
     """
     Модель хранения изображений
     """
-    name = models.CharField(verbose_name='Название изображения', max_length=300)
-    url = models.URLField(verbose_name='Ссылка на изображение', max_length=500, blank=True, null=True)
-    picture = models.ImageField(verbose_name='Изображение', upload_to=create_path_image_data, blank=True, null=True)
-    width = models.PositiveIntegerField(verbose_name='Ширина изображения', blank=True, null=True)
-    height = models.PositiveIntegerField(verbose_name='Высота изображения', blank=True, null=True)
+
+    name = models.CharField(verbose_name="Название изображения", max_length=300)
+    url = models.URLField(
+        verbose_name="Ссылка на изображение", max_length=500, blank=True, null=True
+    )
+    picture = models.ImageField(
+        verbose_name="Изображение", upload_to=create_path_image_data, blank=True, null=True
+    )
+    width = models.PositiveIntegerField(verbose_name="Ширина изображения", blank=True, null=True)
+    height = models.PositiveIntegerField(verbose_name="Высота изображения", blank=True, null=True)
     parent_picture = models.ForeignKey(
-        'self', verbose_name='Родительское изображение', blank=True, null=True, on_delete=models.CASCADE
+        "self",
+        verbose_name="Родительское изображение",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
     )
 
     class Meta:
-        verbose_name = 'Изображение'
-        verbose_name_plural = 'Изображения'
+        verbose_name = "Изображение"
+        verbose_name_plural = "Изображения"
 
     def save(self, *args, **kwargs):
         if self.url and not self.picture:
@@ -30,12 +39,3 @@ class ImageData(models.Model):
             self.name = self.picture.name
 
         super().save(*args, **kwargs)
-
-
-
-
-
-
-
-
-
